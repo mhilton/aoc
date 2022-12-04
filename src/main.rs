@@ -15,14 +15,8 @@ fn main() {
 fn run(lines: impl Iterator<Item = String>) -> impl Display {
     lines
         .map(|s| parse::PairParser::new().parse(&s).unwrap())
-        .map(|p| {
-            if p.0.envelops(p.1) || p.1.envelops(p.0) {
-                1
-            } else {
-                0
-            }
-        })
-        .sum::<usize>()
+        .filter(|&p| p.0.envelops(p.1) || p.1.envelops(p.0))
+        .count()
 }
 
 #[derive(Clone, Copy, Debug)]
