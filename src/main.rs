@@ -15,13 +15,7 @@ fn main() {
 fn run(lines: impl Iterator<Item = String>) -> impl Display {
     lines
         .map(|s| parse::PairParser::new().parse(&s).unwrap())
-        .map(|p| {
-            if p.0.envelops(p.1) || p.1.envelops(p.0) {
-                1
-            } else {
-                0
-            }
-        })
+        .map(|p| if p.0.overlaps(p.1) { 1 } else { 0 })
         .sum::<usize>()
 }
 
@@ -34,5 +28,9 @@ pub struct SectionRange {
 impl SectionRange {
     pub fn envelops(&self, r: SectionRange) -> bool {
         self.start <= r.start && self.end >= r.end
+    }
+
+    pub fn overlaps(&self, r: SectionRange) -> bool {
+        !(self.end < r.start || self.start > r.end)
     }
 }
