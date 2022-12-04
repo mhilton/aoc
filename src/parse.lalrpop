@@ -1,0 +1,16 @@
+use std::str::FromStr;
+use crate::SectionRange;
+
+grammar;
+
+pub Pair: (SectionRange, SectionRange) = {
+	<Range> "," <Range> => (<>),
+};
+
+pub Range: SectionRange = {
+	<s: Num> "-" <e: Num> => SectionRange{start: s, end: e},
+};
+
+Num: isize = {
+	<r"[0-9]+"> => isize::from_str(<>).unwrap(),
+};
