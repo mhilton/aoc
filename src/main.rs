@@ -51,7 +51,6 @@ fn run(lines: impl Iterator<Item = String>) -> impl Display {
                 temp.push(v.pop().unwrap())
             }
         });
-        temp.reverse();
         stacks.entry(words[5].to_string()).and_modify(|v| {
             for _ in 0..count {
                 v.push(temp.pop().unwrap())
