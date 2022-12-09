@@ -11,6 +11,14 @@ fn main() {
 
 fn run(lines: impl Iterator<Item = String>) -> impl Display {
     let mut head = Pos { x: 0, y: 0 };
+    let mut one = head;
+    let mut two = head;
+    let mut three = head;
+    let mut four = head;
+    let mut five = head;
+    let mut six = head;
+    let mut seven = head;
+    let mut eight = head;
     let mut tail = head;
 
     let mut map = HashMap::<Pos, isize>::new();
@@ -28,7 +36,15 @@ fn run(lines: impl Iterator<Item = String>) -> impl Display {
                 "U" => head = head.up(),
                 _ => panic!("bad instruction: {}", mv),
             }
-            tail = tail.follow(&head);
+            one = one.follow(&head);
+            two = two.follow(&one);
+            three = three.follow(&two);
+            four = four.follow(&three);
+            five = five.follow(&four);
+            six = six.follow(&five);
+            seven = seven.follow(&six);
+            eight = eight.follow(&seven);
+            tail = tail.follow(&eight);
             map.entry(tail).and_modify(|n| *n += 1).or_insert(1);
         }
     }
@@ -72,6 +88,10 @@ impl Pos {
 
     fn follow(&self, h: &Pos) -> Pos {
         match (h.x - self.x, h.y - self.y) {
+            (-2, -2) => Pos {
+                x: self.x - 1,
+                y: self.y - 1,
+            },
             (-1, -2) => Pos {
                 x: self.x - 1,
                 y: self.y - 1,
@@ -81,6 +101,10 @@ impl Pos {
                 y: self.y - 1,
             },
             (1, -2) => Pos {
+                x: self.x + 1,
+                y: self.y - 1,
+            },
+            (2, -2) => Pos {
                 x: self.x + 1,
                 y: self.y - 1,
             },
@@ -117,6 +141,10 @@ impl Pos {
                 x: self.x + 1,
                 y: self.y + 1,
             },
+            (-2, 2) => Pos {
+                x: self.x - 1,
+                y: self.y + 1,
+            },
             (-1, 2) => Pos {
                 x: self.x - 1,
                 y: self.y + 1,
@@ -126,6 +154,10 @@ impl Pos {
                 y: self.y + 1,
             },
             (1, 2) => Pos {
+                x: self.x + 1,
+                y: self.y + 1,
+            },
+            (2, 2) => Pos {
                 x: self.x + 1,
                 y: self.y + 1,
             },
