@@ -1,12 +1,12 @@
 // cargo run < ../input
 
 use std::fmt::Display;
-use std::io::stdin;
+use std::io::{read_to_string, stdin};
 
 fn main() {
-    println!("{}", run(stdin().lines().map(|s| s.unwrap())));
+    println!("{}", run(read_to_string(stdin()).unwrap().as_str()));
 }
 
-fn run(lines: impl Iterator<Item = String>) -> impl Display {
+fn run(input: &str) -> impl Display {
     "!!TODO!!"
 }
