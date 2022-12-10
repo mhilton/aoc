@@ -22,14 +22,18 @@ fn run(input: &str) -> impl Display {
             y
         })
         .enumerate()
-        .filter_map(|(n, x)| {
-            // cycle count is 1 based.
-            if n % 40 == 19 {
-                Some(x * i64::try_from(n + 1).unwrap())
+        .map(|(n, x)| {
+            let mut s = String::new();
+            let n = i64::try_from(n).unwrap() % 40;
+            if x == n - 1 || x == n || x == n + 1 {
+                s.push('#')
             } else {
-                None
-            }
+                s.push('.')
+            };
+            if n == 39 {
+                s.push('\n')
+            };
+            s
         })
-        .take(6)
-        .sum::<i64>()
+        .collect::<String>()
 }
